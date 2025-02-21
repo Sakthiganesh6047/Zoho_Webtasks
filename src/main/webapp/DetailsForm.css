@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #e0eafc, #cfdef3);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 50px;
+    padding-bottom: 30px; /* Added space to avoid cutoff */
+}
+
+.form-title {
+    margin-bottom: 20px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    max-width: 650px;
+    width: 100%;
+    border: 1px solid #ddd;
+    margin-top: 20px; /* Added margin for safety */
+}
+
+label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="tel"], 
+input[type="date"], 
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+input:focus, textarea:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+#address {
+    resize: none;
+}
+
+.gender-container, .checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.gender-container label, .checkbox-container label {
+    margin: 0;
+}
+
+button {
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    transition: transform 0.2s;
+    margin-top: 15px;
+}
+
+button:hover {
+    transform: translateY(-3px);
+}

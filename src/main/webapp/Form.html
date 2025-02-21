@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="DetailsForm.css">
+    <title>Customer Details Form</title>
+</head>
+<body>
+    <h1 id="form-title">Customer Details Form</h1>
+    <form action="submitDetails" method="post">
+        <input type="hidden" id="customerId" name="customerId">
+
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required autofocus autocomplete="off"><br><br>
+        
+        <div class="gender-container">
+            <label>Gender:</label>
+            <input type="radio" id="male" name="gender" value="Male">
+            <label for="male">Male</label>
+    
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+    
+            <input type="radio" id="other" name="gender" value="Others">
+            <label for="other">Others</label>
+        </div><br>
+    
+        <div class="checkbox-container">
+            <label for="differentlyAbled">Check if: </label>
+            <input type="checkbox" id="differentlyAbled" name="differentlyAbled" value="Yes">
+            <label for="differentlyAbled">Differently Abled</label>
+        </div><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required><br><br>
+
+        <label for="address">Address:</label><br>
+        <textarea id="address" name="address" rows="4" required></textarea><br><br>
+
+        <label for="father_name">Father's Name:</label>
+        <input type="text" id="father_name" name="fatherName" required><br><br>
+
+        <label for="mother_name">Mother's Name:</label>
+        <input type="text" id="mother_name" name="motherName" required><br><br>
+
+        <label for="education">Educational Qualifications:</label>
+        <input type="text" id="education" name="education" required><br><br>
+
+        <button type="submit" id="submitButton">Submit</button><br>
+        <p><a href="submitDetails">View Submitted Data</a></p>
+    </form>
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const customerId = urlParams.get('id');
+    
+        if (customerId) {
+            document.getElementById("form-title").innerText = "Edit Customer Details";
+            document.getElementById("submitButton").innerText = "Update";
+            document.getElementById("customerId").value = customerId;
+    
+            fetch('submitDetails?id=' + customerId)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("name").value = data.name;
+                    document.querySelector(`input[name='gender'][value='${data.gender}']`).checked = true;
+                    document.getElementById("email").value = data.email;
+                    document.getElementById("phone").value = data.phone;
+                    document.getElementById("dob").value = data.dob;
+                    document.getElementById("father_name").value = data.fatherName;
+                    document.getElementById("mother_name").value = data.motherName;
+                    document.getElementById("address").value = data.address;
+                    document.getElementById("education").value = data.education;
+                    document.getElementById("differentlyAbled").checked = data.differentlyAbled === "Yes";
+                })
+                .catch(error => console.error("Error fetching customer data:", error));
+        }
+    </script>
+</body>
+</html>
