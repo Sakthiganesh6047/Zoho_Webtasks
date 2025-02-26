@@ -18,5 +18,13 @@
     <servlet-name>CustomerDetailsServlet</servlet-name>
     <url-pattern>/submitDetails</url-pattern>
 </servlet-mapping>
+
+<resource-ref>
+    <description>DB Connection Pool</description>
+    <res-ref-name>jdbc/MyDB</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+</resource-ref>
+
 </web-app>
 

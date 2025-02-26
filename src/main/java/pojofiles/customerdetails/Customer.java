@@ -118,7 +118,6 @@ public class Customer {
         this.differentlyAbled = differentlyAbled;
     }
 
-    @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +

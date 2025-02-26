@@ -1,10 +1,14 @@
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #e0eafc, #cfdef3);
+	font-family: Arial, sans-serif;
+	background-color: #f8f9fa;
+	padding: 20px;
+}
+
+.form-body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -16,7 +20,137 @@ body {
     padding-bottom: 30px; /* Added space to avoid cutoff */
 }
 
-.form-title {
+/* Header Styling */
+.header {
+	padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    background-color: white;
+	border-bottom: 2px solid black;
+	position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;        
+}
+
+/* Right-side container for Add New Customer & Logout */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Adds space between buttons */
+}
+
+.header-right a, .header-right button {
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Adds space between buttons */
+}
+
+.header h1 {
+	color: black;
+	font-family: "Audiowide", sans-serif;
+	font-weight: normal;
+}
+
+      .logo {
+          height: 50px; /* Adjust the logo size */
+      }
+      
+      .add-btn {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 10px 30px;
+    position: relative;
+}
+
+.logout-btn {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 10px 30px;
+    position: relative;
+}
+
+.add-btn a {
+    position: relative;
+    display: inline-block;
+}
+
+.logout-btn a {
+    position: relative;
+    display: inline-block;
+}
+
+.add-btn img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.logout-btn img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+/* Tooltip Styling */
+.add-btn a::after {
+    content: "Add Customer"; /* Tooltip text */
+    position: absolute;
+    bottom: -30px; /* Position below the image */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.logout-btn a::after {
+    content: "Logout"; /* Tooltip text */
+    position: absolute;
+    bottom: -30px; /* Position below the image */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+/* Show tooltip on hover */
+.add-btn a:hover::after {
+    opacity: 1;
+}
+
+.logout-btn a:hover::after {
+    opacity: 1;
+}
+
+h1 {
     margin-bottom: 20px;
     color: #333;
     text-transform: uppercase;
@@ -33,7 +167,7 @@ form {
     max-width: 650px;
     width: 100%;
     border: 1px solid #ddd;
-    margin-top: 20px; /* Added margin for safety */
+    margin-top: 20px;
 }
 
 label {
@@ -41,6 +175,18 @@ label {
     color: #555;
     margin-bottom: 5px;
     display: block;
+}
+
+label span.required {
+    color: red !important;
+}
+
+
+label .required {
+    color: red !important;
+    font-size: 1.2rem;
+    margin-left: 5px;
+    font-weight: bold;
 }
 
 input[type="text"], 
@@ -86,9 +232,32 @@ button {
     width: 100%;
     font-size: 1rem;
     transition: transform 0.2s;
-    margin-top: 15px;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 button:hover {
     transform: translateY(-3px);
 }
+
+.view-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    color: white !important; /* Override inherited styles */
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none; /* Removes underline */
+    transition: transform 0.2s, background 0.3s;
+}
+
+.view-button:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #0056b3, #004494);
+}
+
