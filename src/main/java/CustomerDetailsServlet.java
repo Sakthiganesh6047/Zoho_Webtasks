@@ -39,8 +39,7 @@ public class CustomerDetailsServlet extends HttpServlet {
 
         try (Connection conn = getConnection()){
             if (customerIdParam == null) {
-            	System.out.println("inside null doget");
-                List<Customer> customers = new ArrayList<>();
+               List<Customer> customers = new ArrayList<>();
                 try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM CustomerDetails");
                      ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
@@ -82,7 +81,7 @@ public class CustomerDetailsServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         String idStr = request.getParameter("customerId");
-        System.out.println(idStr);
+
         int customerId = (idStr == null || idStr.isEmpty()) ? -1 : Integer.parseInt(idStr);
 
         if ("delete".equals(action)) {
@@ -115,20 +114,21 @@ public class CustomerDetailsServlet extends HttpServlet {
         String differentlyAbled = request.getParameter("differentlyAbled") != null ? "Yes" : "No";
 
         try {
-        	isNull(name);
-        	isNull(gender);
-        	isEmailValid(email);
-        	isPhoneNumValid(phone);
-        	isDOBValid(dob);
-        	isNull(fatherName);
-        	isNull(motherName);
-        	isNull(address);
-        	isNull(education);
-        	isNull(differentlyAbled);
+        	ServerInputValidations validator = new ServerInputValidations();
+        	validator.nameValidation(name);
+        	validator.genderValidation(gender);
+        	validator.emailValidation(email);
+        	validator.dobValidation(dob);
+        	validator.nameValidation(fatherName);
+        	validator.nameValidation(motherName);
+        	validator.addressValidation(address);
+        	validator.nameValidation(education);
+        	validator.disabledValidation(differentlyAbled);
         	System.out.println("Received: " + name + ", " + gender + ", " + email + ", " + phone);
 
 	        try (Connection conn = getConnection()) {
 	            if (customerId == -1) {
+	            	isPhoneNumUnique_insertion(phone);
 	                try (PreparedStatement ps = conn.prepareStatement(
 	                        "INSERT INTO CustomerDetails (name, gender, email, phone, dob, fatherName,"
 	                        + " motherName, address, education, differentlyAbled) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
@@ -146,6 +146,7 @@ public class CustomerDetailsServlet extends HttpServlet {
 	                    System.out.println("Customer added successfully!");
 	                }
 	            } else {
+	            	isPhoneNumUnique_updation(phone , customerId);
 	                try (PreparedStatement ps = conn.prepareStatement(
 	                        "UPDATE CustomerDetails SET name=?, gender=?, email=?, phone=?, dob=?, fatherName=?,"
 	                        + " motherName=?, address=?, education=?, differentlyAbled=? WHERE id=?")) {
@@ -170,7 +171,7 @@ public class CustomerDetailsServlet extends HttpServlet {
         
         } catch(CustomException e) {
         	request.setAttribute("errorMessage", e.getMessage());
-        	System.out.println("Custom attribute is set");
+        	System.out.println("Custom attribute is set" + e.getMessage());
             request.getRequestDispatcher("customerForm.jsp").forward(request, response);
             return;
         }
@@ -186,45 +187,38 @@ public class CustomerDetailsServlet extends HttpServlet {
         }
     }
     
-    private void isNull(String name) throws CustomException {
-    	if (name == null || name.trim().isEmpty()) {
-    		System.out.println("null-check");
-    		throw new CustomException("Required fields cannot be empty.");
-    	}
-    }
-    
-    private void isEmailValid(String email) throws CustomException {
-    	if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-    		throw new CustomException("Invalid email format.");
-    	}
-    }
-    
-    private void isPhoneNumValid(String phone) throws CustomException {
-    	if (!phone.matches("^\\d{10}$")) {
-    		throw new CustomException("Phone number must be 10 digits.");
-    	}
-    }
-    
-    private void isDOBValid(String dob) throws CustomException {
-    	if (!dob.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
-    		throw new CustomException("Invalid date format (YYYY-MM-DD).");
-    	}
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    private static void isPhoneNumUnique_insertion(String phoneNumber) throws CustomException {
+      	 String checkQuery = "SELECT COUNT(*) FROM CustomerDetails WHERE phone = ?";
+
+        try (Connection conn = getConnection();
+             PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
+       	 
+            checkStmt.setString(1, phoneNumber);
+            ResultSet rs = checkStmt.executeQuery();
+            rs.next();
+            if (rs.getInt(1) > 0) {
+                throw new CustomException("Phone number already exists! Please use a different one.");
+            }
+        } catch (SQLException e) {
+               throw new CustomException("Error occured in DataBase while checking phone number" , e);
+           }
+   }
+
+   private static void isPhoneNumUnique_updation(String phoneNumber , int customerId) throws CustomException {
+   	 String checkQuery = "SELECT COUNT(*) FROM CustomerDetails WHERE phone = ? AND id <> ?";
+
+       try (Connection conn = getConnection();
+            PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
+      	 
+           checkStmt.setString(1, phoneNumber);
+           checkStmt.setInt(2, customerId);
+           ResultSet rs = checkStmt.executeQuery();
+           rs.next();
+           if (rs.getInt(1) > 0) {
+               throw new CustomException("Phone number already exists! Please use a different one.");
+           }
+       } catch (SQLException e) {
+               throw new CustomException("Error occured in DataBase while checking phone number" , e);
+           }
+   }
 }

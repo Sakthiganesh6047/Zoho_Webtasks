@@ -8,36 +8,32 @@
     <title>Customer Data</title>
     <style>
     
-  		* {
-			box-sizing: border-box;
-		}
-		
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
             text-align: center;
-            padding: 20px;
+            margin: 0;
+            box-sizing: border-box;
         }
 
-        /* Header Styling */
         .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: white;
-            background-color: white;
+		    display: flex;
+		    align-items: center;
+		    justify-content: space-between;
+		    color: white;
+		    background-color: white;
 			border-bottom: 2px solid black;
-		    position: sticky;
+			position: fixed;
 		    top: 0;
 		    width: 100%;
-		    z-index: 1000;
+		    z-index: 1000;        
 		}
 		
-		/* Right-side container for Add New Customer & Logout */
 		.header-right {
 		    display: flex;
 		    align-items: center;
 		    gap: 15px; /* Adds space between buttons */
+		    padding-left: 20px;
 		}
 		
 		.header-right a, .header-right button {
@@ -59,6 +55,10 @@
 			font-family: "Audiowide", sans-serif;
 			font-weight: normal;
 			text-transform: uppercase;
+		}
+		
+		h2{
+			margin-top: 130px;
 		}
 
         .logo {
@@ -156,6 +156,7 @@
             border-collapse: collapse;
             background: #fff;
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
 
         th, td {
@@ -189,11 +190,15 @@
 		.edit-btn img, .delete-btn img {
 		    width: 24px; /* Adjust icon size */
 		    height: 24px;
-		    display: block;
+		    display: inline-block;
 		}
 		
 		/* Hover effects */
-		.edit-btn:hover, .delete-btn:hover {
+		.delete-btn:hover {
+		    transform: scale(1.1);
+		}
+		
+		.edit-btn img:hover {
 		    transform: scale(1.1);
 		}
 		
@@ -234,6 +239,16 @@
 		    justify-content: center;
 		    align-items: center;
 		}
+		
+		.footer {
+	        background-color: #222;
+	        color: white;
+	        text-align: center;
+	        padding: 15px 0;
+	        width: 100%;
+	        margin-top: 30px;
+	        font-size: 14px;
+	    }
 
     </style>
 </head>
@@ -322,6 +337,10 @@
     <div class="button-container">
 	    <a href="customerForm.jsp" class="center-button">Go Back to Form</a>
 	</div>
+	
+	<footer class="footer">
+	    <p>&copy; 2025 Proventus Metrics. All Rights Reserved.</p>
+	</footer>
 
     <script>
 	    function deleteCustomer(id) {

@@ -12,14 +12,11 @@
 	<title><%= isEditMode ? "Edit Customer Details" : "Customer Details Form" %></title>
     
     <style>
-    	* {
-			box-sizing: border-box;
-		}
 		
 		body {
 			font-family: Arial, sans-serif;
 			background-color: #f8f9fa;
-			padding: 20px;
+			margin: 0;
 		}
 		
 		.form-body {
@@ -30,8 +27,9 @@
 		    flex-direction: column;
 		    justify-content: flex-start;
 		    align-items: center;
-		    padding-top: 50px;
+		    padding-top: 100px;
 		    padding-bottom: 30px; /* Added space to avoid cutoff */
+		    box-sizing: border-box;
 		}
 		
 		/* Header Styling */
@@ -42,7 +40,7 @@
 		    color: white;
 		    background-color: white;
 			border-bottom: 2px solid black;
-			position: sticky;
+			position: fixed;
 		    top: 0;
 		    width: 100%;
 		    z-index: 1000;        
@@ -53,6 +51,7 @@
 		    display: flex;
 		    align-items: center;
 		    gap: 15px; /* Adds space between buttons */
+		    padding-left: 20px;
 		}
 		
 		.header-right a, .header-right button {
@@ -214,6 +213,7 @@
 		    border: 1px solid #bbb;
 		    border-radius: 8px;
 		    font-size: 1rem;
+		    box-sizing: border-box;
 		}
 		
 		input:focus, textarea:focus {
@@ -274,16 +274,25 @@
 		    transform: translateY(-3px);
 		    background: linear-gradient(135deg, #0056b3, #004494);
 		}
+		
+		.error-message{
+
+			padding: 20px;
+		}
+		
+		 .footer {
+	        background-color: #222;
+	        color: white;
+	        text-align: center;
+	        padding: 15px 0;
+	        width: 100%;
+	        margin-top: 30px; /* Adds spacing above the footer */
+	        font-size: 14px;
+	    }
     </style>
     
 </head>
 <body>
-
-	<%-- Display error message if exists --%>
-    <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
-    <% if (errorMessage != null) { %>
-        <div style="color: red; font-weight: bold;"><%= errorMessage %></div>
-    <% } %>
 
 	<!-- Header Section -->
     <div class="header">
@@ -307,7 +316,12 @@
     
 	<div class="form-body">
     	<h1 id="form-title"><%= isEditMode ? "Edit Customer Details" : "Customer Details Form" %></h1>
-	    <form action="submitDetails" method="post">
+    	<%-- Display error message if exists --%>
+	    <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
+	    <% if (errorMessage != null) { %>
+	        <div class=error-message style="color: red; font-weight: bold;"><%= errorMessage %></div>
+	    <% } %>
+		    <form action="submitDetails" method="post">
 	        <input type="hidden" name="customerId" value="<%= isEditMode ? customer.getId() : "" %>">
 	
 	        <label for="name">Full Name:<span class="required">*</span></label>
@@ -356,5 +370,8 @@
 	        <button type="submit"><%= isEditMode ? "Update" : "Submit" %></button>
     	</form>
     </div>
+    <footer class="footer">
+	    <p>&copy; 2025 Proventus Metrics. All Rights Reserved.</p>
+	</footer>
 </body>
 </html>
