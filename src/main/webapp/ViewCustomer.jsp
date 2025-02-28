@@ -14,146 +14,25 @@
             text-align: center;
             margin: 0;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+    		align-items: center;
+            flex-wrap: wrap;
         }
-
-        .header {
-		    display: flex;
-		    align-items: center;
-		    justify-content: space-between;
-		    color: white;
-		    background-color: white;
-			border-bottom: 2px solid black;
-			position: fixed;
-		    top: 0;
-		    width: 100%;
-		    z-index: 1000;        
-		}
-		
-		.header-right {
-		    display: flex;
-		    align-items: center;
-		    gap: 15px; /* Adds space between buttons */
-		    padding-left: 20px;
-		}
-		
-		.header-right a, .header-right button {
-		    text-decoration: none;
-		    padding: 8px 12px;
-		    border-radius: 5px;
-		    font-size: 16px;
-		    cursor: pointer;
-		}
-		
-		.header-left {
-		    display: flex;
-		    align-items: center;
-		    gap: 15px; /* Adds space between buttons */
-		}
-		
-		.header h1 {
-			color: black;
-			font-family: "Audiowide", sans-serif;
-			font-weight: normal;
-			text-transform: uppercase;
-		}
 		
 		h2{
 			margin-top: 130px;
 		}
-
-        .logo {
-            height: 50px; /* Adjust the logo size */
-        }
-        
-        .add-btn {
-		    display: flex;
-		    justify-content: flex-end;
-		    width: 100%;
-		    padding: 10px 30px;
-		    position: relative;
-		}
 		
-		.logout-btn {
-		    display: flex;
-		    justify-content: flex-end;
-		    width: 100%;
-		    padding: 10px 30px;
-		    position: relative;
-		}
-		
-		.add-btn a {
-		    position: relative;
-		    display: inline-block;
-		}
-		
-		.logout-btn a {
-		    position: relative;
-		    display: inline-block;
-		}
-		
-		.add-btn img {
-		    width: 40px;
-		    height: auto;
-		    cursor: pointer;
-		    transition: transform 0.2s;
-		}
-		
-		.logout-btn img {
-		    width: 40px;
-		    height: auto;
-		    cursor: pointer;
-		    transition: transform 0.2s;
-		}
-		
-		/* Tooltip Styling */
-		.add-btn a::after {
-		    content: "Add Customer"; /* Tooltip text */
-		    position: absolute;
-		    bottom: -30px; /* Position below the image */
-		    left: 50%;
-		    transform: translateX(-50%);
-		    background-color: #333;
-		    color: white;
-		    padding: 5px 10px;
-		    font-size: 12px;
-		    border-radius: 5px;
-		    white-space: nowrap;
-		    opacity: 0;
-		    transition: opacity 0.3s ease-in-out;
-		    pointer-events: none;
-		}
-		
-		.logout-btn a::after {
-		    content: "Logout"; /* Tooltip text */
-		    position: absolute;
-		    bottom: -30px; /* Position below the image */
-		    left: 50%;
-		    transform: translateX(-50%);
-		    background-color: #333;
-		    color: white;
-		    padding: 5px 10px;
-		    font-size: 12px;
-		    border-radius: 5px;
-		    white-space: nowrap;
-		    opacity: 0;
-		    transition: opacity 0.3s ease-in-out;
-		    pointer-events: none;
-		}
-		
-		/* Show tooltip on hover */
-		.add-btn a:hover::after {
-		    opacity: 1;
-		}
-		
-		.logout-btn a:hover::after {
-		    opacity: 1;
+		.table-container{
+			width: 95%;
 		}
 
         /* Table Styling */
         table {
-            width: 90%;
-            margin: auto;
-            border-collapse: collapse;
+        	width: 100%;
+			border-collapse: collapse;
             background: #fff;
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
@@ -171,6 +50,13 @@
 		    text-align: center;
 		    padding: 12px;
 		}
+		
+		tr:hover {
+		    background-color: #f5f5f5;
+		    transform: scale(1.02);
+		    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+		}
+		
 		
 		.actions {
 		    display: flex;
@@ -239,108 +125,79 @@
 		    justify-content: center;
 		    align-items: center;
 		}
-		
-		.footer {
-	        background-color: #222;
-	        color: white;
-	        text-align: center;
-	        padding: 15px 0;
-	        width: 100%;
-	        margin-top: 30px;
-	        font-size: 14px;
-	    }
 
     </style>
 </head>
 <body>
 
     <!-- Header Section -->
-    <div class="header">
-        
-        <div class="header-right">
-        	<img src="buildings.png" alt="Company Logo" class="logo"> <!-- Logo -->
-        	<h1>Proventus Metrics</h1>
-        </div>
-        <div class="header-left">
-	        <div class=add-btn>
-			    <a href="customerForm.jsp">
-			    	<img src="add.png" alt="Add New Customer">
-			    </a>
-			</div>
-	        <div class="logout-btn">
-	            <a href="logout.jsp">
-	                <img src="power.png" alt="Logout"> <!-- Logout Icon -->
-	            </a>
-	        </div>
-	    </div>
-    </div>
+    <% request.setAttribute("pageName", "home"); %>
+	<jsp:include page="header.jsp" />
 
     <h2>Customers</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Gender</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>DOB</th>
-                <th>Father's Name</th>
-                <th>Mother's Name</th>
-                <th>Address</th>
-                <th>Education</th>
-                <th>Disabled</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% List<Customer> customers = (List<Customer>) request.getAttribute("customerList");
-            	if (customers == null){
-            		response.sendRedirect("submitDetails");
-            	}
-            	customers = (List<Customer>) request.getAttribute("customerList");
-               	if (customers != null && !customers.isEmpty()) {
-                   for (Customer customer : customers) { %>
-            <tr id="row-<%= customer.getId() %>">
-                <td><%= customer.getId() %></td>
-                <td><%= customer.getName() %></td>
-                <td><%= customer.getGender() %></td>
-                <td><%= customer.getEmail() %></td>
-                <td><%= customer.getPhone() %></td>
-                <td><%= customer.getDob() %></td>
-                <td><%= customer.getFatherName() %></td>
-                <td><%= customer.getMotherName() %></td>
-                <td><%= customer.getAddress() %></td>
-                <td><%= customer.getEducation() %></td>
-                <td><%= customer.getDifferentlyAbled() %></td>
-                <td class="actions">
-                	<div>
-                	<a href="submitDetails?id=<%= customer.getId() %>" class="edit-btn">
-					    <img alt="Edit" src="pencil.png">
-					</a>
-                	</div>
-                  	<button class="delete-btn" onclick="deleteCustomer('<%= customer.getId() %>')">
-					    <img src="delete.png" alt="Delete">
-					</button>             
-                </td>
-            </tr>
-            <% } } else { %>
-            <tr>
-                <td colspan="12">No customer data available.</td>
-            </tr>
-            <% } %>
-        </tbody>
-    </table>
+	<div class=table-container>
+	    <table>
+	        <thead>
+	            <tr>
+	                <th>ID</th>
+	                <th>Name</th>
+	                <th>Gender</th>
+	                <th>Email</th>
+	                <th>Phone</th>
+	                <th>DOB</th>
+	                <th>Father's Name</th>
+	                <th>Mother's Name</th>
+	                <th>Address</th>
+	                <th>Education</th>
+	                <th>Disabled</th>
+	                <th>Actions</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <% List<Customer> customers = (List<Customer>) request.getAttribute("customerList");
+	            	if (customers == null){
+	            		response.sendRedirect("submitDetails");
+	            	}
+	            	customers = (List<Customer>) request.getAttribute("customerList");
+	               	if (customers != null && !customers.isEmpty()) {
+	                   for (Customer customer : customers) { %>
+	            <tr id="row-<%= customer.getId() %>">
+	                <td><%= customer.getId() %></td>
+	                <td><%= customer.getName() %></td>
+	                <td><%= customer.getGender() %></td>
+	                <td><%= customer.getEmail() %></td>
+	                <td><%= customer.getPhone() %></td>
+	                <td><%= customer.getDob() %></td>
+	                <td><%= customer.getFatherName() %></td>
+	                <td><%= customer.getMotherName() %></td>
+	                <td><%= customer.getAddress() %></td>
+	                <td><%= customer.getEducation() %></td>
+	                <td><%= customer.getDifferentlyAbled() %></td>
+	                <td class="actions">
+	                	<div>
+	                	<a href="submitDetails?id=<%= customer.getId() %>" class="edit-btn">
+						    <img alt="Edit" src="pencil.png">
+						</a>
+	                	</div>
+	                  	<button class="delete-btn" onclick="deleteCustomer('<%= customer.getId() %>')">
+						    <img src="delete.png" alt="Delete">
+						</button>             
+	                </td>
+	            </tr>
+	            <% } } else { %>
+	            <tr>
+	                <td colspan="12">No customer data available.</td>
+	            </tr>
+	            <% } %>
+	        </tbody>
+	    </table>
+	</div>
 
     <br>
     <div class="button-container">
 	    <a href="customerForm.jsp" class="center-button">Go Back to Form</a>
 	</div>
-	
-	<footer class="footer">
-	    <p>&copy; 2025 Proventus Metrics. All Rights Reserved.</p>
-	</footer>
 
     <script>
 	    function deleteCustomer(id) {
@@ -370,6 +227,6 @@
 	        }
 	    }
     </script>
-
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

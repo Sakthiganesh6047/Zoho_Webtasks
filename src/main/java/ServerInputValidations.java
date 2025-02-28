@@ -116,4 +116,39 @@ public class ServerInputValidations {
     	    throw new CustomException("Invalid value for differentlyAbled field!");
     	} 
     }
+    
+//    private static void isPhoneNumUnique_insertion(String phoneNumber) throws CustomException {
+// 	 String checkQuery = "SELECT COUNT(*) FROM CustomerDetails WHERE phone = ?";
+//
+//   try (Connection conn = getConnection();
+//        PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
+//  	 
+//       checkStmt.setString(1, phoneNumber);
+//       ResultSet rs = checkStmt.executeQuery();
+//       rs.next();
+//       if (rs.getInt(1) > 0) {
+//           throw new CustomException("Phone number already exists! Please use a different one.");
+//       }
+//   } catch (SQLException e) {
+//          throw new CustomException("Error occured in DataBase while checking phone number" , e);
+//      }
+//}
+//
+//private static void isPhoneNumUnique_updation(String phoneNumber , int customerId) throws CustomException {
+//	 String checkQuery = "SELECT COUNT(*) FROM CustomerDetails WHERE phone = ? AND id <> ?";
+//
+//  try (Connection conn = getConnection();
+//       PreparedStatement checkStmt = conn.prepareStatement(checkQuery)) {
+// 	 
+//      checkStmt.setString(1, phoneNumber);
+//      checkStmt.setInt(2, customerId);
+//      ResultSet rs = checkStmt.executeQuery();
+//      rs.next();
+//      if (rs.getInt(1) > 0) {
+//          throw new CustomException("Phone number already exists! Please use a different one.");
+//      }
+//  } catch (SQLException e) {
+//          throw new CustomException("Error occured in DataBase while checking phone number" , e);
+//      }
+//}
 }

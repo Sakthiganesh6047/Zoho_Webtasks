@@ -28,6 +28,21 @@ public class Customer {
         this.education = education;
         this.differentlyAbled = differentlyAbled;
     }
+    
+    public Customer(String name, String gender, String email, String phone,
+	            String dob, String fatherName, String motherName,
+	            String address, String education, String differentlyAbled) {
+	this.name = name;
+	this.gender = gender;
+	this.email = email;
+	this.phone = phone;
+	this.dob = dob;
+	this.fatherName = fatherName;
+	this.motherName = motherName;
+	this.address = address;
+	this.education = education;
+	this.differentlyAbled = differentlyAbled;
+	}
 
     public int getId() {
         return id;
